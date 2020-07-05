@@ -68,12 +68,12 @@ def calc_k_p_m(f):
 
 def evaluate_deg_less_than_k(f, u, k, p, precomputed_u_powers):
     assert deg(f) <= k
-
-
-
-    result = np.polyval(f, u)
-    # validity assertion: if the powers of f are 0,...,k or k*2,...,k*p,...,k*2^(m-1)
-    validation_precomputed_powers(f, k, p) # safety net that we do not evaluate polynomials that can't be evaluated from precalculated values. should be removed after algo is completed.
+    result = 0
+    for i in range(len(f)):
+        u_power_i = precomputed_u_powers[len(precomputed_u_powers) - i -1]
+        coeff_power_i = f[len(f) - i - 1]
+        result += coeff_power_i*u_power_i
+    assert result == np.polyval(f, u), 'result=' + str(result) + ', polyval=' + str(np.polyval(f, u))
     return result
 
 
