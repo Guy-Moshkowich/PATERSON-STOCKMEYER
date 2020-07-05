@@ -1,14 +1,11 @@
 import math
-import logging
 import numpy as np
-from utils import * # TODO remove after testing as it depends on sympy
 
-logging.basicConfig(level=logging.INFO)
 '''
- Assumption: 
- use numpy polynomial's devision instead of implementing long division.
+ Assumption: using numpy polynomial's devision instead of implementing long division.
  
 '''
+
 
 def calc_q_r(f, k, p):
     x_to_the_power_of_kp = np.append([1], np.zeros(k*p))
@@ -25,8 +22,6 @@ def calc_c_s(r, q, k, p):
     return c, s
 
 
-
-
 def calc_k(n):
     return int(math.sqrt(n/2))
 
@@ -39,23 +34,6 @@ def calc_f_tilde(f, k, p):
     x_to_the_power_of_kp = np.append([1], np.zeros(k * (2*p - 1)))
     f_tilde = np.polyadd(f, x_to_the_power_of_kp)
     return f_tilde
-
-
-# def calc_bs(u, k):
-#     '''
-#     bs description in "Improved Bootstrapping for Approximate Homomorphic Encryption" -
-#     has an error, here is the correct implementation:
-#     :return: [u^2, u^3, ..., u^k]
-#     '''
-#     return [u**(i) for i in range(k)]
-#
-#
-# def calc_gs(u, k, m):
-#     '''
-#     :return: [u^{2k}, u^{4k}, u^{8k}...,u^{2^{m-1}}]
-#     '''
-#
-#     return [u**((2**i)*k) for i in range(1, m)]
 
 
 def calc_k_p_m(f):
@@ -80,8 +58,10 @@ def evaluate_deg_less_than_k(f, u, k, p, precomputed_u_powers):
 def deg(f):
     return len(f) - 1
 
+
 def precomputed_u_powers(u, k):
     return [u**(k - i) for i in range(k + 1)]
+
 
 def ps(f, u):
     k, p, m = calc_k_p_m(f)

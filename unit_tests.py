@@ -1,10 +1,6 @@
 import unittest
-import numpy as np
 import paterson_stockmeyer_algo as algo
-from utils import *
-
-
-
+from test_utils import *
 
 
 class Tests(unittest.TestCase):
@@ -15,7 +11,6 @@ class Tests(unittest.TestCase):
         u = 5
         val = algo.ps(f, u)
         self.assertEqual(val, np.polyval(f, u))
-
 
     def test_calc_c_s(self):
         '''
@@ -48,12 +43,10 @@ class Tests(unittest.TestCase):
         np.testing.assert_allclose(q, expected_q)
         np.testing.assert_allclose(r, expected_r)
 
-
-    # def test_sp(self):
-    #     f = [1, 2, 3, 4]
-    #     u = 5
-    #     algo.sp(f, u)
-
+    def test_ps_586(self):
+        f = [4, 3, 2, 1]
+        u = 5
+        self.assertEqual(algo.ps(f, u),586)
 
     def test_evaluate_c(self):
         f_x = x ** 20 + 15 * x ** 15 + 10 * x ** 10 + 5 * x ** 5 + x + 1
@@ -65,28 +58,6 @@ class Tests(unittest.TestCase):
         u = 5
         val = algo.evaluate_deg_less_than_k(c, u, k, p, algo.precomputed_u_powers(u, k))
         self.assertEqual(val, np.polyval(c, u))
-
-
-
-    # def test_calc_gs(self):
-    #     u = 5
-    #     f = sym_to_coeffs(x ** 20 + 15 * x ** 15 + 10 * x ** 10 + 5 * x ** 5 + x + 1)
-    #     k, p, m = algo.calc_k_p_m(f)
-    #     f_tilde = algo.calc_f_tilde(f, k, p)
-    #     gs = algo.calc_gs(u, k, m)
-    #     expected_gs = [5**6,5**12]
-    #     self.assertEqual(gs, expected_gs)
-
-    # def test_calc_bs(self):
-    #     u = 5
-    #     f = sym_to_coeffs(x**20 + 15*x**15 +10*x**10 +5*x**5 + x + 1)
-    #     k, p, _ = algo.calc_k_p_m(f)
-    #
-    #     f_tilde = algo.calc_f_tilde(f, k, p)
-    #
-    #     bs = algo.calc_bs(u, k)
-    #     expected_bs = [1, 5, 25]
-    #     self.assertEqual(bs, expected_bs)
 
     def test_calc_f_tilde(self):
         f = sym_to_coeffs(x**20 + 15*x**15 +10*x**10 +5*x**5 + x + 1)
@@ -107,14 +78,10 @@ class Tests(unittest.TestCase):
         k = algo.calc_k(n)
         self.assertEqual(k, expected_k)
 
-
     def test_calc_k_p(self):
         f_x = x ** 14 + 25 * x ** 5 + x + 1
         f = sym_to_coeffs(f_x)
         k, p, m = algo.calc_k_p_m(f)
-
-
-
 
     def test_calc_m(self):
         for n in (2, 100):
