@@ -28,7 +28,7 @@ class Tests(unittest.TestCase):
         f_x = x ** 20 + 15 * x ** 15 + 10 * x ** 10 + 5 * x ** 5 + x + 1
         f = sym_to_coeffs(f_x)
         k, p, _ = algo.calc_k_p_m(f)
-        f_tilde = algo.calc_f_tilde(f)
+        f_tilde = algo.calc_f_tilde(f, k, p)
         q = sym_to_coeffs(x**9 + x**8 + 15.*x**3)
         r = sym_to_coeffs(10 * x ** 10 + 5 * x ** 5 + x + 1)
         c, s = algo.calc_c_s(r, q, k, p)
@@ -41,7 +41,7 @@ class Tests(unittest.TestCase):
         f_x = x ** 20 + 15 * x ** 15 + 10 * x ** 10 + 5 * x ** 5 + x + 1
         f = sym_to_coeffs(f_x)
         k, p, m = algo.calc_k_p_m(f)
-        f_tilde = algo.calc_f_tilde(f)
+        f_tilde = algo.calc_f_tilde(f, k, p)
         q, r = algo.calc_q_r(f_tilde, k, p)
         expected_q = sym_to_coeffs(x**9 + x**8 + 15.*x**3)
         expected_r = sym_to_coeffs(10 * x ** 10 + 5 * x ** 5 + x + 1)
@@ -59,41 +59,39 @@ class Tests(unittest.TestCase):
         f_x = x ** 20 + 15 * x ** 15 + 10 * x ** 10 + 5 * x ** 5 + x + 1
         f = sym_to_coeffs(f_x)
         k, p, m = algo.calc_k_p_m(f)
-        f_tilde = algo.calc_f_tilde(f)
+        f_tilde = algo.calc_f_tilde(f, k, p)
         q, r = algo.calc_q_r(f_tilde, k, p)
         c, s = algo.calc_c_s(r, q, k, p)
         u = 5
-        val = algo.evaluate(c, u, k, p)
+        val = algo.evaluate_deg_less_than_k(c, u, k, p, algo.precomputed_u_powers(u, k))
         self.assertEqual(val, np.polyval(c, u))
 
-    def test_evaluate_x_power(self):
-        x_power_pk = sym_to_coeffs(x**12)
-        u = 5
-        val = algo.evaluate(x_power_pk, u, k=3, p=4)
-        self.assertEqual(val, np.polyval(x_power_pk, u))
 
 
-    def test_calc_gs(self):
-        u = 5
-        f = sym_to_coeffs(x ** 20 + 15 * x ** 15 + 10 * x ** 10 + 5 * x ** 5 + x + 1)
-        f_tilde = algo.calc_f_tilde(f)
-        k, p, m = algo.calc_k_p_m(f)
-        gs = algo.calc_gs(u, k, m)
-        expected_gs = [5**6,5**12]
-        self.assertEqual(gs, expected_gs)
+    # def test_calc_gs(self):
+    #     u = 5
+    #     f = sym_to_coeffs(x ** 20 + 15 * x ** 15 + 10 * x ** 10 + 5 * x ** 5 + x + 1)
+    #     k, p, m = algo.calc_k_p_m(f)
+    #     f_tilde = algo.calc_f_tilde(f, k, p)
+    #     gs = algo.calc_gs(u, k, m)
+    #     expected_gs = [5**6,5**12]
+    #     self.assertEqual(gs, expected_gs)
 
-    def test_calc_bs(self):
-        u = 5
-        f = sym_to_coeffs(x**20 + 15*x**15 +10*x**10 +5*x**5 + x + 1)
-        f_tilde = algo.calc_f_tilde(f)
-        k, p, _ = algo.calc_k_p_m(f)
-        bs = algo.calc_bs(u, k)
-        expected_bs = [1, 5, 25]
-        self.assertEqual(bs, expected_bs)
+    # def test_calc_bs(self):
+    #     u = 5
+    #     f = sym_to_coeffs(x**20 + 15*x**15 +10*x**10 +5*x**5 + x + 1)
+    #     k, p, _ = algo.calc_k_p_m(f)
+    #
+    #     f_tilde = algo.calc_f_tilde(f, k, p)
+    #
+    #     bs = algo.calc_bs(u, k)
+    #     expected_bs = [1, 5, 25]
+    #     self.assertEqual(bs, expected_bs)
 
     def test_calc_f_tilde(self):
         f = sym_to_coeffs(x**20 + 15*x**15 +10*x**10 +5*x**5 + x + 1)
-        f_tilde = algo.calc_f_tilde(f)
+        k, p, _ = algo.calc_k_p_m(f)
+        f_tilde = algo.calc_f_tilde(f, k, p)
         expected_f_tilde = sym_to_coeffs(x**21 + x**20 + 15*x**15 + 10*x**10 + 5*x**5 + x + 1.0)
         np.testing.assert_allclose(f_tilde, expected_f_tilde)
 

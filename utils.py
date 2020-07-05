@@ -14,7 +14,8 @@ def print_as_sym(f):
     pprint(f_x, use_unicode=True)
 
 def validation_precomputed_powers(f, k, m):
-    print('k=' + str(k) + ', m=' + str(m))
+    # print('k=' + str(k) + ', m=' + str(m))
+    # print_as_sym(f)
     valid_powers = set()
     for i in range(k + 1):
         valid_powers.add(i)
@@ -22,4 +23,6 @@ def validation_precomputed_powers(f, k, m):
         valid_powers.add((2 ** i) * k)
     for i in range(len(f) - 1, -1, -1):
         index = len(f) - i - 1
-        assert ((f[i] == 0) or (index in valid_powers)), 'k=' + str(k)  + ', i=' + str(i) + ', index=' + str(index) + ', valid_powers=' + str(valid_powers) + ', f=' + str(f)
+        cond = (f[i] == 0) or (index in valid_powers)
+        if not cond:
+            assert true, '\n\n'+ str(np.poly1d(f)) + '\n\n, k=' + str(k)  + ', i=' + str(i) + ', index=' + str(index) + ', valid_powers=' + str(valid_powers) + ', f=' + str(f)
