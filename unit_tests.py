@@ -1,22 +1,20 @@
 import unittest
 import numpy as np
 import paterson_stockmeyer_algo as algo
-from sympy import *
-
-x = symbols('x')
+from utils import *
 
 
-def sym_to_coeffs(f_x):
-    f = Poly(f_x, x).all_coeffs()
-    return np.array(f, dtype='float64')
 
-
-def print_as_sym(f):
-    f_x = Poly.from_list(f, gens=x)
-    pprint(f_x, use_unicode=True)
 
 
 class Tests(unittest.TestCase):
+
+    def test_sp_monic_and_degree(self):
+        f_x = x ** 60 + 50 * x ** 50 + 40 * x ** 40 + 10 * x ** 10 + 5 * x ** 5 + x + 1
+        f = sym_to_coeffs(f_x)
+        u = 2
+        val = algo.sp_monic_and_degree(f, u)
+        print('val=' + str(val))
 
     def test_calc_c_s(self):
         '''
@@ -27,14 +25,17 @@ class Tests(unittest.TestCase):
 
         Assumptions: deg(x**k(p-1))=9
         '''
-
-        p = 2**2
-        k = 3
-        q = sym_to_coeffs(x**15 + 30*x**10 + 25*x**5 +20)
-        r = sym_to_coeffs(15*x**15 +10*x**10 +5*x**5 + x + 1)
+        f_x = x ** 60 + 50 * x ** 50 + 40 * x ** 40 + 10 * x ** 10 + 5 * x ** 5 + x + 1
+        f = sym_to_coeffs(f_x)
+        n = len(f) - 1
+        k = algo.calc_k(n) #k=5
+        m = algo.calc_m(n, k)
+        p = 2 ** (m - 1) # p=8
+        q = sym_to_coeffs(x**20 + 50.0*x**10 + 40.0)
+        r = sym_to_coeffs(10.0*x**10 + 5.0*x**5 + 1.0*x + 1.0)
         c, s = algo.calc_c_s(r, q, k, p)
-        expected_c = sym_to_coeffs(15.0)
-        expected_s = sym_to_coeffs(-440.0*x**10 - 1.0*x**9 - 370.0*x**5 + 1.0*x - 299.0)
+        expected_c = sym_to_coeffs(-1.0*x**15 + 50.0*x**5)
+        expected_s = sym_to_coeffs(-2460.0*x**15 + 10.0*x**10 - 1995.0*x**5 + 1.0*x + 1.0)
         np.testing.assert_allclose(c, expected_c)
         np.testing.assert_allclose(s, expected_s)
 
@@ -43,48 +44,41 @@ class Tests(unittest.TestCase):
         '''
         This test verifies correct computation of r(x) and q(x)
         assumptions:
-        deg(f) = k(2p-1) = 5(2*4-1) = 35, k=5, p=2**2=4
-        deg(x**(k*p)) = 20
+        deg(f) = k(2p-1) = 5(2*8-1) = 60, k=5, p=2**3=8
+        deg(x**(k*p)) = 40
         '''
 
-        k = 5
-        p = 2**2
-        f_x = x**35 + 30*x**30 + 25*x**25 +20*x**20 +15*x**15 +10*x**10 +5*x**5 + x + 1
+        f_x = x**60 + 50*x**50 + 40*x**40  +10*x**10 +5*x**5 + x + 1
         f = sym_to_coeffs(f_x)
+        n = len(f) - 1
+        k = algo.calc_k(n)
+        m = algo.calc_m(n, k)
+        p = 2**(m-1)
+        print('k=' + str(k) + ', p=' + str(p))
         q, r = algo.calc_q_r(f, k, p)
-        expected_q = sym_to_coeffs(x**15 + 30*x**10 + 25*x**5 +20)
-        expected_r = sym_to_coeffs(15*x**15 +10*x**10 +5*x**5 + x + 1)
+        print('q,r:')
+        print_as_sym(q)
+        print_as_sym(r)
+
+        expected_q = sym_to_coeffs(x**20 + 50.0*x**10 + 40.0)
+        expected_r = sym_to_coeffs(10.0*x**10 + 5.0*x**5 + 1.0*x + 1.0)
         np.testing.assert_allclose(q, expected_q)
         np.testing.assert_allclose(r, expected_r)
 
 
-    def test_sp(self):
-        f = [1, 2, 3, 4]
-        u = 5
-        algo.sp(f, u)
-
-    # def test_calc_r_tilde(self):
-    #     #poly=x^9
-    #     #r=x+x^9
-    #     r = [0,1,0,0,0,0, 0, 0,0,1]
-    #     k = 3
-    #     m = 3
-    #     r_tilde = algo.calc_r_tilde(r, k, m)
-    #     expected_r_tilde = [0, 1]
-    #     np.testing.assert_allclose(r_tilde, expected_r_tilde)
+    # def test_sp(self):
+    #     f = [1, 2, 3, 4]
+    #     u = 5
+    #     algo.sp(f, u)
 
 
+    def test_calc_val(self):
+        f_x = x**14 + 2*x**2 + x + 1
+        f = sym_to_coeffs(f_x)
+        u = 2
+        val = algo.calc_val(f, u)
+        self.assertEqual(val, np.polyval(f, u))
 
-
-    # def test_calc_q_r(self):
-    #     f_tilde = [1,0,0,0,0,0, 0, 1]
-    #     k = 3
-    #     m = 2
-    #     q, r = algo.calc_q_r(f_tilde, k, m)  #return f_tilde div x**(k*(2**(m-1)) {x**6}
-    #     expected_q = [0, 1]                  #x**7 + 1 = x(x**6) + 1
-    #     expected_r = [1]
-    #     np.testing.assert_allclose(q, expected_q)
-    #     np.testing.assert_allclose(r, expected_r)
 
     def test_calc_gs(self):
         u = 2
@@ -101,13 +95,31 @@ class Tests(unittest.TestCase):
         expected_bs = [2, 4, 8, 16, 32]
         self.assertEqual(bs, expected_bs)
 
-    def test_calc_f_tilde(self):
-        f = np.array([1, 2, 3])
-        k = 3
-        m = 2
-        f_tilde = algo.calc_f_tilde(f, k, m)
-        # polynomial have x**9 {=3*(2**2-1)}  element and so its 10th index should be 1
-        expected_f_tilde = np.array([1,2,3,0,0,0,0,0,0,1])
+    def test_calc_f_tilde_1(self):
+        '''
+        assumptions:
+        deg(f) =  k(2p-1) = 5(2*4-1) = 35, k=5, p=2**2=4
+        :return:
+        '''
+        k = 5
+        p = 2 ** 2
+        f = sym_to_coeffs(x**35 + 25*x**25 +20*x**20 +15*x**15 +10*x**10 +5*x**5 + x + 1)
+        f_tilde = algo.calc_f_tilde(f, k, p)
+        expected_f_tilde = sym_to_coeffs(x**35 + 25*x**25 +20*x**20 +15*x**15 +10*x**10 +5*x**5 + x + 1)
+        np.testing.assert_allclose(f_tilde, expected_f_tilde)
+
+
+    def test_calc_f_tilde_2(self):
+        '''
+        assumptions:
+        deg(f) <  k(2p-1) = 5(2*4-1) = 35, k=5, p=2**2=4
+        :return:
+        '''
+        k = 5
+        p = 2 ** 2
+        f = sym_to_coeffs(x**30 + 25*x**25 +20*x**20 +15*x**15 +10*x**10 +5*x**5 + x + 1)
+        f_tilde = algo.calc_f_tilde(f, k, p)
+        expected_f_tilde = sym_to_coeffs(x**35 + x**30 + 25*x**25 +20*x**20 +15*x**15 +10*x**10 +5*x**5 + x + 1)
         np.testing.assert_allclose(f_tilde, expected_f_tilde)
 
     def test_calc_k(self):
@@ -122,19 +134,23 @@ class Tests(unittest.TestCase):
         k = algo.calc_k(n)
         self.assertEqual(k, expected_k)
 
+
+    def test_calc_k_p(self):
+        f_x = x ** 14 + 25 * x ** 5 + x + 1
+        f = sym_to_coeffs(f_x)
+        k, p = algo.calc_k_p(f)
+        print('f=' + str(f))
+        print('k=' + str(k))
+        print('p=' + str(p))
+
+    8
+
     def test_calc_m(self):
-        n = 19
-        k = algo.calc_k(n)
-        m = algo.calc_m(n,k)
-        self.assertTrue(k*(2**m-1) > n)
-
-    # def test_P_div_quotient(self):
-    #     quotient, remainder = P.polydiv ([1, 2, 1], (0,1)) # X^2+2x+1 / X
-    #     expected_quotient = (2, 1)
-    #     expected_remainder = (1)
-    #     np.testing.assert_allclose(quotient, expected_quotient)
-    #     np.testing.assert_allclose(remainder, expected_remainder)
-
+        for n in (2, 100):
+            k = algo.calc_k(n)
+            m = algo.calc_m(n,k)
+            self.assertTrue(k*(2**m-1) > n)
+            self.assertTrue(k*(2**(m-1)-1) <= n)
 
     def test_poly_div_quotient(self):
         p1 = np.poly1d([1, 2, 1]) # X^2+2x+1
