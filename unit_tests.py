@@ -56,7 +56,7 @@ class Tests(unittest.TestCase):
         q, r = algo.calc_q_r(f_tilde, k, p)
         c, s = algo.calc_c_s(r, q, k, p)
         u = 5
-        val = algo.evaluate_deg_less_than_k(c, u, k, p, algo.precomputed_u_powers(u, k))
+        val = algo.evaluate_deg_less_than_k(c, u, k, p, algo.precomputed_u_powers_less_than_k(u, k))
         self.assertEqual(val, np.polyval(c, u))
 
     def test_calc_f_tilde(self):
