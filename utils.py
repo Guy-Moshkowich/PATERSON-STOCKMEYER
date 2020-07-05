@@ -12,3 +12,14 @@ def sym_to_coeffs(f_x):
 def print_as_sym(f):
     f_x = Poly.from_list(f, gens=x)
     pprint(f_x, use_unicode=True)
+
+def validation_precomputed_powers(f, k, m):
+    print('k=' + str(k) + ', m=' + str(m))
+    valid_powers = set()
+    for i in range(k + 1):
+        valid_powers.add(i)
+    for i in range(1, m):
+        valid_powers.add((2 ** i) * k)
+    for i in range(len(f) - 1, -1, -1):
+        index = len(f) - i - 1
+        assert ((f[i] == 0) or (index in valid_powers)), 'k=' + str(k)  + ', i=' + str(i) + ', index=' + str(index) + ', valid_powers=' + str(valid_powers) + ', f=' + str(f)
