@@ -5,3 +5,6 @@ It is based on the papers
 2) [Improved Bootstrapping for Approximate Homomorphic Encryption](https://eprint.iacr.org/2018/1043.pdf)
 
 <img src="https://latex.codecogs.com/gif.latex?x^2 " /> 
+
+
+Note: you need to install [SymPy](https://www.sympy.org/en/index.html) in order to run the unit tests.
