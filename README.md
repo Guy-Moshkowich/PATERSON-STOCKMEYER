@@ -6,7 +6,7 @@ using the Paterson-Stockmeyer algorithms.
 ## The main idea
 Let p(x) be a monic polynomials of degree k(2p-1) where p is a 2-power.
 
-We present p(x) as a sum of two monic polynomials of degree k(p-1) and use precomputed powers: 
+We write p(x) as a sum of two monic polynomials of degree k(p-1) and use precomputed powers: 
 <img src="https://latex.codecogs.com/gif.latex?x^2,\dots,x^k&space;\text{\&space;and&space;}&space;x^{2k},\dots,x^{pk}" title="x^2,\dots,x^k \text{\ and } x^{2k},\dots,x^{2^{m-1}k}" />.
 
 Calculate q(x) and r(x) by dividing p(x) by <img src="https://latex.codecogs.com/gif.latex?x^{kp}" title="x^{kp}" />,
