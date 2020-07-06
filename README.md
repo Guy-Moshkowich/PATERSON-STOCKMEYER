@@ -43,7 +43,9 @@ Then, calculate
 using recursion as explained above.
 
 Finally, we have
-<img src="https://latex.codecogs.com/gif.latex?f(u)&space;=f^{\prime}(u)&space;-&space;u^{2p-1}" title="f(u) =f^{\prime}(u) - u^{2p-1}" />
+<img src="https://latex.codecogs.com/gif.latex?f(u)&space;=f^{\prime}(u)&space;-&space;u^{2p-1}" title="f(u) =f^{\prime}(u) - u^{2p-1}" /> 
+where 
+<img src="https://latex.codecogs.com/gif.latex?u^{2p-1}" title="u^{2p-1}" /> was precomputed.
 
 
 
