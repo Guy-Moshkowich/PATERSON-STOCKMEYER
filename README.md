@@ -4,7 +4,7 @@ This is an implementation for evaluating a polynomial for a certain x value with
 using the Paterson-Stockmeyer algorithms.
 
 ## The main idea
-Let p(x) be a monic polynomails of degree k(2p-1).
+Let p(x) be a monic polynomials of degree k(2p-1).
 We present p(x) as a sum of two monic polynomials of degree k(p-1) and use precomputed powers: 
 <img src="https://latex.codecogs.com/gif.latex?x^2,\dots,x^k&space;\text{\&space;and&space;}&space;x^{2k},\dots,x^{2^{m-1}k},&space;\text{\&space;where\&space;}" title="x^2,\dots,x^k \text{\ and } x^{2k},\dots,x^{2^{m-1}k}, \text{\ where\ }" />
 
@@ -14,7 +14,7 @@ Calculate q(x) and r(x) by dividing p(x) by <img src="https://latex.codecogs.com
 , where deg(q)=k(p-1) and deg(r)<=kp-1.
 
 
-Calculte c(x) and s(x) by dividing 
+Calculate c(x) and s(x) by dividing 
 <img src="https://latex.codecogs.com/gif.latex?r(x)-x^{k(p-1)}" title="r(x)-x^{k(p-1)}" />,
 by q(x)
 
@@ -24,6 +24,7 @@ Then,
 
 <img src="https://latex.codecogs.com/gif.latex?p(x)&space;=&space;\left&space;\{&space;\big(x^{kp}&plus;c(x)\big)q(x)\right&space;\}&space;&plus;\left&space;\{&space;x^{k(p-1)}&space;&plus;&space;s(x)\right&space;\}" title="p(x) = \left \{ \big(x^{kp}+c(x)\big)q(x)\right \} +\left \{ x^{k(p-1)} + s(x)\right \}" />
 
+The degree of the two polynomials in curly brackets have degree of k(p-1).
 
 ## Algorithm 
 
@@ -33,3 +34,5 @@ The algorithm is based on the following papers:
 2) [Improved Bootstrapping for Approximate Homomorphic Encryption](https://eprint.iacr.org/2018/1043.pdf)
 
 Note: you need to install [SymPy](https://www.sympy.org/en/index.html) in order to run the unit tests.
+
+
