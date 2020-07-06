@@ -36,7 +36,7 @@ In order to evaluate a general polynomial f(x) at u, we calculate
 which is has degree k(2p-1) for 
 <img src="https://latex.codecogs.com/gif.latex?k\approx\sqrt{\text{deg}(f))/2}" title="k\approx\sqrt{\text{deg}(f))/2}" />
 and 
-<img src="https://latex.codecogs.com/gif.latex?p&space;=&space;2^{\left&space;\lceil&space;\log_2(n/k&space;&plus;&space;1)\right&space;\rceil}" title="p = 2^{\left \lceil \log_2(n/k + 1)\right \rceil}" />
+<img src="https://latex.codecogs.com/gif.latex?p&space;=&space;2^{\left&space;\lceil&space;\log_2\big((\text{deg}(f))/k)&space;&plus;&space;1\big)\right&space;\rceil}" title="p = 2^{\left \lceil \log_2\big((\text{deg}(f))/k) + 1\big)\right \rceil}" />
 
 Then, calculate 
 <img src="https://latex.codecogs.com/gif.latex?f^{\prime}(u)" title="f^{\prime}(u)" />
