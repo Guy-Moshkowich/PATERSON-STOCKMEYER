@@ -29,7 +29,7 @@ The degree of the two polynomials in the curly brackets have degree of k(p-1) i.
 
 Using the precomuted powers, we can evaluate  
 <img src="https://latex.codecogs.com/gif.latex?x^{kp}&plus;c(x)" title="x^{kp}+c(x)" />
-for specific x value with zero nonscalar multiplication and so we can compute p(x) using induction on the two polynomials with degree k(p-1).
+for specific x value with zero nonscalar multiplication and so we can compute p(x) using recurssion on the two polynomials with degree k(p-1).
 
 In order to evaluate a general polynomial f(x) at u, we calculate 
 <img src="https://latex.codecogs.com/gif.latex?f^{\prime}&space;=&space;f&space;&plus;&space;x^{k(2p-1)}" title="f^{\prime} = f + x^{k(2p-1)}" />
