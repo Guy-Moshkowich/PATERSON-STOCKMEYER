@@ -4,9 +4,11 @@ This is an implementation for evaluating a polynomial for a certain x value with
 using the Paterson-Stockmeyer algorithms.
 
 ## The main idea
-Let p(x) be a monic polynomials of degree k(2p-1).
+Let p(x) be a monic polynomials of degree k(2p-1) where 
+<img src="https://latex.codecogs.com/gif.latex?p=2^{(m-1)}" title="p=2^{(m-1)}" />.
+
 We present p(x) as a sum of two monic polynomials of degree k(p-1) and use precomputed powers: 
-<img src="https://latex.codecogs.com/gif.latex?x^2,\dots,x^k&space;\text{\&space;and&space;}&space;x^{2k},\dots,x^{2^{m-1}k},&space;\text{\&space;where\&space;}" title="x^2,\dots,x^k \text{\ and } x^{2k},\dots,x^{2^{m-1}k}, \text{\ where\ }" />
+<img src="https://latex.codecogs.com/gif.latex?x^2,\dots,x^k&space;\text{\&space;and&space;}&space;x^{2k},\dots,x^{pk},&space;\text{\&space;where\&space;}" title="x^2,\dots,x^k \text{\ and } x^{2k},\dots,x^{2^{m-1}k}, \text{\ where\ }" />
 
 Calculate q(x) and r(x) by dividing p(x) by <img src="https://latex.codecogs.com/gif.latex?x^{kp}" title="x^{kp}" />,
 
@@ -24,9 +26,30 @@ Then,
 
 <img src="https://latex.codecogs.com/gif.latex?p(x)&space;=&space;\left&space;\{&space;\big(x^{kp}&plus;c(x)\big)q(x)\right&space;\}&space;&plus;\left&space;\{&space;x^{k(p-1)}&space;&plus;&space;s(x)\right&space;\}" title="p(x) = \left \{ \big(x^{kp}+c(x)\big)q(x)\right \} +\left \{ x^{k(p-1)} + s(x)\right \}" />
 
-The degree of the two polynomials in curly brackets have degree of k(p-1).
+The degree of the two polynomials in curly brackets have degree of k(p-1) i.e.,  p(x) is presented as a sum of two monic polynomials of degree k(p-1).
 
-## Algorithm 
+Using the precomuted powers, we can evaluate  
+<img src="https://latex.codecogs.com/gif.latex?x^{kp}&plus;c(x)" title="x^{kp}+c(x)" />
+for specific x value with zero nonscalar multiplication and so we can compute p(x) using induction on the two polynomials with degree k(p-1).
+
+In order to evaluate a general polynomial f(x) at u, we calculate 
+<img src="https://latex.codecogs.com/gif.latex?f^{\prime}&space;=&space;f&space;&plus;&space;x^{k(2p-1)}" title="f^{\prime} = f + x^{k(2p-1)}" />
+which is has degree k(2p-1) for 
+<img src="https://latex.codecogs.com/gif.latex?k\approx\sqrt{\text{deg}(f))/2}" title="k\approx\sqrt{\text{deg}(f))/2}" />
+and 
+<img src="https://latex.codecogs.com/gif.latex?p&space;=&space;2^{\left&space;\lceil&space;\log_2(n/k&space;&plus;&space;1)\right&space;\rceil}" title="p = 2^{\left \lceil \log_2(n/k + 1)\right \rceil}" />
+
+Then, calculate 
+<img src="https://latex.codecogs.com/gif.latex?f^{\prime}(u)" title="f^{\prime}(u)" />
+using recursion as explained above.
+
+Finally, we have
+<img src="https://latex.codecogs.com/gif.latex?f(u)&space;=f^{\prime}(u)&space;-&space;u^{2p-1}" title="f(u) =f^{\prime}(u) - u^{2p-1}" />
+
+
+
+
+
 
 
 The algorithm is based on the following papers:
