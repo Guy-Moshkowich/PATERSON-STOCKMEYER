@@ -1,14 +1,13 @@
 # PATERSON-STOCKMEYER
-This is an implementation for evaluating a polynomial for a certain x value with nonscalar complexity of
+This is an implementation for evaluating a polynomial at a certain x value with nonscalar complexity of
 <img src="https://latex.codecogs.com/gif.latex?\sqrt{n}&space;&plus;&space;O(log\&space;n)" title="\sqrt{n} + O(log\ n)" />
 using the Paterson-Stockmeyer algorithms.
 
 ## The main idea
-Let p(x) be a monic polynomials of degree k(2p-1) where 
-<img src="https://latex.codecogs.com/gif.latex?p=2^{(m-1)}" title="p=2^{(m-1)}" />.
+Let p(x) be a monic polynomials of degree k(2p-1).
 
 We present p(x) as a sum of two monic polynomials of degree k(p-1) and use precomputed powers: 
-<img src="https://latex.codecogs.com/gif.latex?x^2,\dots,x^k&space;\text{\&space;and&space;}&space;x^{2k},\dots,x^{pk},&space;\text{\&space;where\&space;}" title="x^2,\dots,x^k \text{\ and } x^{2k},\dots,x^{2^{m-1}k}, \text{\ where\ }" />
+<img src="https://latex.codecogs.com/gif.latex?x^2,\dots,x^k&space;\text{\&space;and&space;}&space;x^{2k},\dots,x^{pk}" title="x^2,\dots,x^k \text{\ and } x^{2k},\dots,x^{2^{m-1}k}" /> where p is a 2-power.
 
 Calculate q(x) and r(x) by dividing p(x) by <img src="https://latex.codecogs.com/gif.latex?x^{kp}" title="x^{kp}" />,
 
@@ -26,7 +25,7 @@ Then,
 
 <img src="https://latex.codecogs.com/gif.latex?p(x)&space;=&space;\left&space;\{&space;\big(x^{kp}&plus;c(x)\big)q(x)\right&space;\}&space;&plus;\left&space;\{&space;x^{k(p-1)}&space;&plus;&space;s(x)\right&space;\}" title="p(x) = \left \{ \big(x^{kp}+c(x)\big)q(x)\right \} +\left \{ x^{k(p-1)} + s(x)\right \}" />
 
-The degree of the two polynomials in curly brackets have degree of k(p-1) i.e.,  p(x) is presented as a sum of two monic polynomials of degree k(p-1).
+The degree of the two polynomials in the curly brackets have degree of k(p-1) i.e.,  p(x) is presented as a sum of two monic polynomials of degree k(p-1).
 
 Using the precomuted powers, we can evaluate  
 <img src="https://latex.codecogs.com/gif.latex?x^{kp}&plus;c(x)" title="x^{kp}+c(x)" />
