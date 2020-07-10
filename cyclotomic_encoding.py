@@ -6,6 +6,8 @@ from test_utils import *
 We show here how to calculated the coefficient of polynomial in z[x]/(\phi_8(x)) 
 for encoding the list of complex numbers: [3+4j, 2-1j]
 The result is stated in HEAAN paper to be 2.5*x**3 + 1.41*x**2 + 2.5*x + 0.71
+
+Mathematical details in https://docs.google.com/document/d/18w09HC1UXivOPFzQcH74cYJJmawaY0x3mnjmUIMO20A/edit?usp=sharing
 '''
 def round_complex(c):
     return round(c.real, 2) + round(c.imag, 2) * 1j
