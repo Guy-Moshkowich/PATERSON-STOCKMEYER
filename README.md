@@ -34,9 +34,10 @@ for specific x value with zero nonscalar multiplication and so we can compute p(
 In order to evaluate a general polynomial f(x) at u, we calculate 
 <img src="https://latex.codecogs.com/gif.latex?f^{\prime}&space;=&space;f&space;&plus;&space;x^{k(2p-1)}" title="f^{\prime} = f + x^{k(2p-1)}" />
 which is has degree k(2p-1) for 
-<img src="https://latex.codecogs.com/gif.latex?k\approx\sqrt{\text{deg}(f))/2}" title="k\approx\sqrt{\text{deg}(f))/2}" />
+<img src="https://latex.codecogs.com/gif.latex?n=\deg(f)" title="n=\text{deg}(f)}" /> was precomputed.
+<img src="https://latex.codecogs.com/gif.latex?k\approx\sqrt{n/2}" title="k\approx\sqrt{n/2}" />
 and 
-<img src="https://latex.codecogs.com/gif.latex?p&space;=&space;2^{\left&space;\lceil&space;\log_2\big((\text{deg}(f))/k)&space;&plus;&space;1\big)\right&space;\rceil}" title="p = 2^{\left \lceil \log_2\big((\text{deg}(f))/k) + 1\big)\right \rceil}" />
+<img src="https://latex.codecogs.com/gif.latex?p&space;=&space;2^{\left&space;\lceil&space;\log_2\big((n/k)&space;&plus;&space;1\big)\right&space;\rceil}" title="p = 2^{\left \lceil \log_2\big(n/k) + 1\big)\right \rceil}" />
 
 Then, calculate 
 <img src="https://latex.codecogs.com/gif.latex?f^{\prime}(u)" title="f^{\prime}(u)" />
