@@ -5,7 +5,7 @@ from test_utils import *
 '''
 We show here how to calculated the coefficient of polynomial in z[x]/(\phi_8(x)) 
 for encoding the list of complex numbers: [3+4j, 2-1j]
-The result is stated in HEAAN paper to be 2.5*x**3 + 1.41*x**2 + 2.5*x + 0.71
+The result is stated in HEAAN paper to be 0.71x^3 + 2.5x^2 + 1.41x + 2.5
 
 Mathematical details in https://docs.google.com/document/d/18w09HC1UXivOPFzQcH74cYJJmawaY0x3mnjmUIMO20A/edit?usp=sharing
 '''
@@ -29,4 +29,5 @@ input = [input_1, input_2, np.conj(input_2), np.conj(input_1)]
 actual_coeffs = zeta_matrix_inverse.dot(input)
 expected_coeffs = [10/4, m.sqrt(2), 10/4, m.sqrt(2)/2]
 np.testing.assert_almost_equal(actual_coeffs, expected_coeffs, decimal=5)
-print_as_sym(round_complex_list(actual_coeffs))
+print(round_complex_list(actual_coeffs))
+print_as_sym(round_complex_list(actual_coeffs)[::-1])
