@@ -1,3 +1,6 @@
+https://docs.google.com/document/d/1r4JoMK0-2MnjHo-drYb7QsJlx5ewTTvStPfr2cZl1oM/edit?usp=sharing
+
+
 # PATERSON-STOCKMEYER
 This is an implementation for evaluating a polynomial at a certain x value with nonscalar complexity of
 <img src="https://latex.codecogs.com/gif.latex?\sqrt{n}&space;&plus;&space;O(log\&space;n)" title="\sqrt{n} + O(log\ n)" />
@@ -27,7 +30,7 @@ Then,
 
 The degree of the two polynomials in the curly brackets have degree of k(p-1) i.e.,  p(x) is presented as a sum of two monic polynomials of degree k(p-1).
 
-Using the precomuted powers, we can evaluate  
+Using the precomputed powers, we can evaluate  
 <img src="https://latex.codecogs.com/gif.latex?x^{kp}&plus;c(x)" title="x^{kp}+c(x)" />
 for specific x value with zero nonscalar multiplication and so we can compute p(x) using recursion on the two polynomials with degree k(p-1).
 
