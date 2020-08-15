@@ -1,5 +1,5 @@
 
-Summary of the paper [1] (https://docs.google.com/document/d/1r4JoMK0-2MnjHo-drYb7QsJlx5ewTTvStPfr2cZl1oM/edit?usp=sharing)
+[Summary of the paper [1]] (https://docs.google.com/document/d/1r4JoMK0-2MnjHo-drYb7QsJlx5ewTTvStPfr2cZl1oM/edit?usp=sharing)
 
 
 # PATERSON-STOCKMEYER
