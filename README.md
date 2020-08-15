@@ -1,11 +1,11 @@
 
-[Summary of the paper [1]](https://docs.google.com/document/d/1r4JoMK0-2MnjHo-drYb7QsJlx5ewTTvStPfr2cZl1oM/edit?usp=sharing)
 
 
 # PATERSON-STOCKMEYER
 This is an implementation for evaluating a polynomial at a certain x value with nonscalar complexity of
 <img src="https://latex.codecogs.com/gif.latex?\sqrt{n}&space;&plus;&space;O(log\&space;n)" title="\sqrt{n} + O(log\ n)" />
 using the Paterson-Stockmeyer algorithms.
+[Summary of the paper [1]](https://docs.google.com/document/d/1r4JoMK0-2MnjHo-drYb7QsJlx5ewTTvStPfr2cZl1oM/edit?usp=sharing)
 
 ## The main idea
 Let p(x) be a monic polynomials of degree k(2p-1) where p is a 2-power.
