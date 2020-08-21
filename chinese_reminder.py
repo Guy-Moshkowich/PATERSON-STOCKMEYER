@@ -40,7 +40,7 @@ for a_new in range(n_new):
     a_tag = a.copy()
     a_tag.append(a_new)
     x_new = generate_int(a_tag, n_tag)
-    if x_new % numpy.prod(n_tag) == x_base:
+    if x_new % numpy.prod(n_tag) == x_base % numpy.prod(n):
         print('a_new = ', a_new)
         break
 
