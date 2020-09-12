@@ -1,19 +1,5 @@
 import numpy
-
-
-def gcdExtended(a, b):
-    # Base Case
-    if a == 0:
-        return b, 0, 1
-
-    gcd, x1, y1 = gcdExtended(b % a, a)
-
-    # Update x and y using results of recursive
-    # call
-    x = y1 - (b // a) * x1
-    y = x1
-
-    return gcd, x, y
+from crt_tools import gcdExtended
 
 
 def generate_int(a_param, n_param):
@@ -42,5 +28,6 @@ for a_new in range(n_new):
     x_new = generate_int(a_tag, n_tag)
     if x_new % numpy.prod(n_tag) == x_base % numpy.prod(n):
         print('a_new = ', a_new)
+        print('x_new =', x_new)
         break
 

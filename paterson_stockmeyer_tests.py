@@ -1,5 +1,5 @@
 import unittest
-import paterson_stockmeyer_algo as algo
+import paterson_stockmeyer as algo
 from test_utils import *
 
 
