@@ -9,7 +9,7 @@ def gcdExtended(a, b):
     return gcd, x, y
 
 
-def prod_hat(chain, i):
+def calc_prod_hat(chain, i):
     p = 1
     for k in range(len(chain)):
         if k != i:
@@ -27,18 +27,27 @@ def get_int(rns, mod_chain):
     x_hat = 0
     for i in range(len(mod_chain)):
         mod = mod_chain[i]
-        inverse_prod_hat = inverse(prod_hat(mod_chain, i), mod)
-        x_hat += rns[i] * (prod_hat(mod_chain, i)) * (inverse_prod_hat % mod)
+        inverse_prod_hat = inverse(calc_prod_hat(mod_chain, i), mod)
+        x_hat += rns[i] * (calc_prod_hat(mod_chain, i)) * (inverse_prod_hat % mod)
     assert [x_hat % residue for residue in mod_chain] == rns
     return x_hat % np.prod(mod_chain)
 
+
 def transform_basis(rns, source_mod_chain, target_mod_chain):
+    rns_results = []
+    inverse_prod_hat = [[0]*len(source_mod_chain)]*len(target_mod_chain)
+    prod_hat = [calc_prod_hat(source_mod_chain, i) for i in range(len(source_mod_chain))]
+
     for j in range(len(target_mod_chain)):
-        target_mod = target_mod_chain[j]
+        target_mod_j = target_mod_chain[j]
+        for i in range(len(source_mod_chain)):
+            source_mod_i = source_mod_chain[i]
+            inverse_prod_hat_i = inverse(prod_hat[i], source_mod_i)
+            inverse_prod_hat[j][i] = (inverse_prod_hat_i % source_mod_i) % target_mod_j
+
+    for j in range(len(target_mod_chain)):
         x_hat = 0
         for i in range(len(source_mod_chain)):
-            source_mod = source_mod_chain[i]
-            inverse_prod_hat = inverse(prod_hat(source_mod_chain, i), source_mod)
-            x_hat += (rns[i] % target_mod) * ((prod_hat(source_mod_chain, i)) % target_mod)* ((inverse_prod_hat % source_mod) % target_mod)
-        print(x_hat % target_mod)
-    return 0
+            x_hat += (rns[i] % target_mod_chain[j]) * (prod_hat[i] % target_mod_chain[j]) * inverse_prod_hat[j][i]
+        rns_results.append(x_hat % target_mod_chain[j])
+    return rns_results
